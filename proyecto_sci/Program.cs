@@ -16,43 +16,37 @@ namespace proyecto_sci
 
             do
             {
-                Console.WriteLine("\n### SCI - Sistema contra incendios ###");
-                Console.WriteLine("----------");
-                Console.WriteLine("|        |");
-                Console.WriteLine("|        |");
-                Console.WriteLine("|        |");
-                Console.WriteLine("----------");
-                Console.WriteLine("|        |");
-                Console.WriteLine("|        |");
-                Console.WriteLine("|        |");
-                Console.WriteLine("----------");
-                Console.WriteLine("|        |");
-                Console.WriteLine("|        |");
-                Console.WriteLine("|        |");
-                Console.WriteLine("----------");
-                Console.WriteLine("[1] Monitorear");
-                Console.WriteLine("[2] Revisar Sensores");
-                Console.WriteLine("[5] Salir");
-
-                Console.Write("Seleccione una opcion: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("###### FIRE GUARD - SCI ######");
+                Console.ResetColor();
+                Console.WriteLine("------ Panel de Control ------");
+                Console.WriteLine("[1] Monitorear sensores");
+                Console.WriteLine("[2] Activar sensor manualmente");
+                Console.WriteLine("[3] Apagar todos los sensores");
+                Console.WriteLine("[0] Apagar Sistema (Salir)");
+                Console.WriteLine("------------------------------");
+                Console.Write("» Seleccione una opcion: ");
                 opcion = int.Parse(Console.ReadLine());
                 Menu(opcion, sensores);
 
-            } while (opcion != 5);
+            } while (opcion != 0);
         }
 
         static void Menu(int opcion, int sensores)
         {
             switch (opcion)
             {
+                case 0:
+                    Console.WriteLine("Saliendo...");
+                    break;
                 case 1:
                     Monitorear(sensores);
                     break;
                 case 2:
-                    RevisarSensores();
+                    ActivarSensor(sensores);
                     break;
-                case 5:
-                    Console.WriteLine("Saliendo...");
+                case 3:
+                    ApagarSensores();
                     break;
                 default:
                     Console.WriteLine("Opción no válida");
@@ -63,20 +57,14 @@ namespace proyecto_sci
         static void Monitorear(int sensores)
         {
             Console.Clear();
-            Console.WriteLine("\nMonitoreando...");
+            Console.WriteLine("Escaneando sensores...");
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            for (int i = 0; i < 10; i++)
-            {
-                Console.Write("=");
-                Thread.Sleep(100);
-            }
-            Console.ResetColor();
-            Console.WriteLine();
+            BarraProgreso();
 
             Random rand = new Random();
+            int alertas = 0;
 
-            for (int  i = 1;  i <= sensores;  i++)
+            for (int i = 1; i <= sensores; i++)
             {
                 int sensor = rand.Next(0, 150);
 
@@ -85,6 +73,7 @@ namespace proyecto_sci
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Sensor {i}: Temperatura: {sensor}");
                     Console.ResetColor();
+                    alertas++;
                 }
                 else
                 {
@@ -92,16 +81,52 @@ namespace proyecto_sci
                 }
             }
 
-            Console.WriteLine("\nMonitoreo completado.");
+            Console.WriteLine("Monitoreo completado.");
+            Console.WriteLine($"Total de alertas: {alertas}");
+            Console.WriteLine();
         }
 
-        static void RevisarSensores()
+        static void ActivarSensor(int sensores)
         {
-            int sensores = 6;
-
             Console.Clear();
             Console.WriteLine("Revisando sensores...");
             Console.WriteLine($"Cantidad de sensores: {sensores}");
+            Console.Write("Ingrese el número del sensor a activar (1-" + sensores + "): ");
+            int sensorSeleccionado = int.Parse(Console.ReadLine());
+            Console.WriteLine($"Activando sensor {sensorSeleccionado}...");
+            Thread.Sleep(500);
+            Console.WriteLine($"Sensor {sensorSeleccionado} ha sido activado.");
+            Console.WriteLine();
+        }
+
+        static void ApagarSensores()
+        {
+            Console.Clear();
+            Console.WriteLine("Apagando todos los sensores...");
+            Thread.Sleep(500);
+            Console.WriteLine("Todos los sensores han sido apagados.");
+            Console.WriteLine();
+        }
+
+        static void BarraProgreso()
+        {
+            int porcentaje = 0;
+            int filaBarra = Console.CursorTop;
+            Console.CursorVisible = false;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[                    ]");
+            for (int i = 1; i <= 20; i++)
+            {
+                porcentaje += 5;
+                Console.SetCursorPosition(i, filaBarra);
+                Console.Write("■");
+                Console.SetCursorPosition(23, filaBarra);
+                Console.Write($"{porcentaje}%");
+                Thread.Sleep(200);
+            }
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.CursorVisible = true;
         }
     }
 }
