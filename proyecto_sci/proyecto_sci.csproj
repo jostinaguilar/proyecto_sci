@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Monitorear\Monitorear.csproj">
-      <Project>{09c6d132-c9bb-4a11-9502-1755236637db}</Project>
-      <Name>Monitorear</Name>
+    <ProjectReference Include="..\SCI\SCI.csproj">
+      <Project>{4b46f261-1e75-4624-b767-91345eef2d13}</Project>
+      <Name>SCI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

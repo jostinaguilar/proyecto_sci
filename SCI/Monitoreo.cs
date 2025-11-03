@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Lib;
 
-namespace Monitorear
+namespace SCI
 {
     public class Monitoreo
     {
@@ -14,7 +14,7 @@ namespace Monitorear
             Console.Clear();
             Console.WriteLine("Escaneando sensores...");
 
-            Utils lib = new Utils();
+            Lib lib = new Lib();
             lib.BarraProgreso();
 
             Random rand = new Random();

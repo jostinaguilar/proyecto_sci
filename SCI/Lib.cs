@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Lib
+namespace SCI
 {
-    public class Utils
+    public class Lib
     {
         public void BarraProgreso()
         {
