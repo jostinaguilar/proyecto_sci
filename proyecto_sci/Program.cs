@@ -10,12 +10,9 @@ namespace proyecto_sci
 {
     internal class Program
     {
+        static Monitoreo monitoreo = new Monitoreo();
         static void Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("###### FIRE GUARD - SCI ######");
-            Console.ResetColor();
-
             int opcion;
             Sensores sensores = new Sensores();
 
@@ -23,8 +20,6 @@ namespace proyecto_sci
             string[] tiposSensores = sensores.TiposSensores();
             string[] ubicacionesSensores = sensores.UbicacionesSensores();
             int[] estadosSensores = sensores.EstadosSensores();
-
-            Monitoreo monitoreo = new Monitoreo();
 
             monitoreo.Inicializar(idsSensores, tiposSensores, ubicacionesSensores, estadosSensores);
 
@@ -51,8 +46,7 @@ namespace proyecto_sci
                     Console.WriteLine("Saliendo...");
                     break;
                 case 1:
-                    Monitoreo monitorear = new Monitoreo();
-                    monitorear.Inicializar(ids, tipos, ubicaciones, estados);
+                    monitoreo.Inicializar(ids, tipos, ubicaciones, estados);
                     break;
                 case 2:
                     ActivarSensor(ids, tipos, ubicaciones, estados);
