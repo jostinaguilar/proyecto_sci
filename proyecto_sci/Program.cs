@@ -48,7 +48,7 @@ namespace proyecto_sci
                     Console.WriteLine("Saliendo...");
                     break;
                 case 1:
-                    if(apagado == 0)
+                    if (apagado == 0)
                     {
                         Console.WriteLine("Sensores apagados, no puede monitorear. Enciendalos primero");
                     }
@@ -56,7 +56,7 @@ namespace proyecto_sci
                     {
                         monitoreo.Inicializar(ids, tipos, ubicaciones, estados);
                     }
-                        break;
+                    break;
                 case 2:
                     ActivarSensor(ids, tipos, ubicaciones, estados);
                     break;
@@ -74,15 +74,21 @@ namespace proyecto_sci
 
         static void ActivarSensor(int[] ids, string[] tipos, string[] ubicaciones, int[] estados)
         {
-            //Console.Clear();
-            //Console.WriteLine("Revisando sensores...");
-            //Console.WriteLine($"Cantidad de sensores: {sensores}");
-            //Console.Write("Ingrese el número del sensor a activar (1-" + sensores + "): ");
-            //int sensorSeleccionado = int.Parse(Console.ReadLine());
-            //Console.WriteLine($"Activando sensor {sensorSeleccionado}...");
-            //Thread.Sleep(500);
-            //Console.WriteLine($"Sensor {sensorSeleccionado} ha sido activado.");
-            //Console.WriteLine();
+            Console.Clear();
+            Console.Write("Ingrese el ID del sensor a activar: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Console.WriteLine($"Buscando sensor: ID {id}");
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+
+                if (ids[i] == id)
+                {
+                    Console.WriteLine($"Sensor: ID={ids[i]} Tipo={tipos[i]} Ubicación={ubicaciones[i]}");
+                }
+
+            }
         }
 
         static void ApagarSensores()
