@@ -12,14 +12,24 @@ namespace proyecto_sci
     {
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("###### FIRE GUARD - SCI ######");
+            Console.ResetColor();
+
             int opcion;
-            int sensores = 6;
+            Sensores sensores = new Sensores();
+
+            int[] idsSensores = sensores.IdsSensores();
+            string[] tiposSensores = sensores.TiposSensores();
+            string[] ubicacionesSensores = sensores.UbicacionesSensores();
+            int[] estadosSensores = sensores.EstadosSensores();
+
+            Monitoreo monitoreo = new Monitoreo();
+
+            monitoreo.Inicializar(idsSensores, tiposSensores, ubicacionesSensores, estadosSensores);
 
             do
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("###### FIRE GUARD - SCI ######");
-                Console.ResetColor();
                 Console.WriteLine("------ Panel de Control ------");
                 Console.WriteLine("[1] Monitorear sensores");
                 Console.WriteLine("[2] Activar sensor manualmente");
@@ -28,12 +38,12 @@ namespace proyecto_sci
                 Console.WriteLine("------------------------------");
                 Console.Write("» Seleccione una opcion: ");
                 opcion = int.Parse(Console.ReadLine());
-                Menu(opcion, sensores);
+                Menu(opcion, idsSensores, tiposSensores, ubicacionesSensores, estadosSensores);
 
             } while (opcion != 0);
         }
 
-        static void Menu(int opcion, int sensores)
+        static void Menu(int opcion, int[] ids, string[] tipos, string[] ubicaciones, int[] estados)
         {
             switch (opcion)
             {
@@ -42,10 +52,10 @@ namespace proyecto_sci
                     break;
                 case 1:
                     Monitoreo monitorear = new Monitoreo();
-                    monitorear.Inicializar(sensores);
+                    monitorear.Inicializar(ids, tipos, ubicaciones, estados);
                     break;
                 case 2:
-                    ActivarSensor(sensores);
+                    ActivarSensor(ids, tipos, ubicaciones, estados);
                     break;
                 case 3:
                     ApagarSensores();
@@ -56,17 +66,17 @@ namespace proyecto_sci
             }
         }
 
-        static void ActivarSensor(int sensores)
+        static void ActivarSensor(int[] ids, string[] tipos, string[] ubicaciones, int[] estados)
         {
-            Console.Clear();
-            Console.WriteLine("Revisando sensores...");
-            Console.WriteLine($"Cantidad de sensores: {sensores}");
-            Console.Write("Ingrese el número del sensor a activar (1-" + sensores + "): ");
-            int sensorSeleccionado = int.Parse(Console.ReadLine());
-            Console.WriteLine($"Activando sensor {sensorSeleccionado}...");
-            Thread.Sleep(500);
-            Console.WriteLine($"Sensor {sensorSeleccionado} ha sido activado.");
-            Console.WriteLine();
+            //Console.Clear();
+            //Console.WriteLine("Revisando sensores...");
+            //Console.WriteLine($"Cantidad de sensores: {sensores}");
+            //Console.Write("Ingrese el número del sensor a activar (1-" + sensores + "): ");
+            //int sensorSeleccionado = int.Parse(Console.ReadLine());
+            //Console.WriteLine($"Activando sensor {sensorSeleccionado}...");
+            //Thread.Sleep(500);
+            //Console.WriteLine($"Sensor {sensorSeleccionado} ha sido activado.");
+            //Console.WriteLine();
         }
 
         static void ApagarSensores()
