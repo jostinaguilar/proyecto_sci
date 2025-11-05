@@ -11,6 +11,7 @@ namespace proyecto_sci
     internal class Program
     {
         static Monitoreo monitoreo = new Monitoreo();
+        static int apagado = 1;
         static void Main(string[] args)
         {
             int opcion;
@@ -29,6 +30,7 @@ namespace proyecto_sci
                 Console.WriteLine("[1] Monitorear sensores");
                 Console.WriteLine("[2] Activar sensor manualmente");
                 Console.WriteLine("[3] Apagar todos los sensores");
+                Console.WriteLine("[4] Encender todos los sensores");
                 Console.WriteLine("[0] Apagar Sistema (Salir)");
                 Console.WriteLine("------------------------------");
                 Console.Write("» Seleccione una opcion: ");
@@ -46,13 +48,23 @@ namespace proyecto_sci
                     Console.WriteLine("Saliendo...");
                     break;
                 case 1:
-                    monitoreo.Inicializar(ids, tipos, ubicaciones, estados);
-                    break;
+                    if(apagado == 0)
+                    {
+                        Console.WriteLine("Sensores apagados, no puede monitorear. Enciendalos primero");
+                    }
+                    else
+                    {
+                        monitoreo.Inicializar(ids, tipos, ubicaciones, estados);
+                    }
+                        break;
                 case 2:
                     ActivarSensor(ids, tipos, ubicaciones, estados);
                     break;
                 case 3:
                     ApagarSensores();
+                    break;
+                case 4:
+                    EncenderSensores();
                     break;
                 default:
                     Console.WriteLine("Opción no válida");
@@ -79,6 +91,17 @@ namespace proyecto_sci
             Console.WriteLine("Apagando todos los sensores...");
             Thread.Sleep(500);
             Console.WriteLine("Todos los sensores han sido apagados.");
+            apagado = 0;
+            Console.WriteLine();
+        }
+
+        static void EncenderSensores()
+        {
+            Console.Clear();
+            Console.WriteLine("Encendiendo todos los sensores...");
+            Thread.Sleep(500);
+            Console.WriteLine("Todos los sensores han sido encendidos.");
+            apagado = 1;
             Console.WriteLine();
         }
     }
