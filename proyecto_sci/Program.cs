@@ -58,7 +58,14 @@ namespace proyecto_sci
                     }
                     break;
                 case 2:
-                    ActivarSensor(ids, tipos, ubicaciones, estados);
+                    if (apagado == 0)
+                    {
+                        Console.WriteLine("Sensores apagados. Enciendalos primero");
+                    }
+                    else
+                    {
+                        ActivarSensor(ids, tipos, ubicaciones, estados);
+                    }
                     break;
                 case 3:
                     ApagarSensores();
@@ -80,14 +87,54 @@ namespace proyecto_sci
 
             Console.WriteLine($"Buscando sensor: ID {id}");
 
+            int pos = -1;
+
             for (int i = 0; i < ids.Length; i++)
             {
 
-                if (ids[i] == id)
+                if (ids[i] == id && tipos[i] == "Manual")
                 {
-                    Console.WriteLine($"Sensor: ID={ids[i]} Tipo={tipos[i]} Ubicación={ubicaciones[i]}");
+                    pos = i;
                 }
 
+
+            }
+
+            if (pos != -1)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("¡Alarma Activada!");
+                Console.WriteLine("Emitiendo alerta a la central...");
+                Console.ResetColor();
+                Console.WriteLine($"Sensor: ID={ids[pos]} Tipo={tipos[pos]} Ubicación={ubicaciones[pos]}");
+
+                bool start = true;
+
+                Thread beap = new Thread(() =>
+                {
+                    while (start)
+                    {
+                        Console.Beep(2000, 300);
+                        Thread.Sleep(150);
+                    }
+                });
+
+                beap.Start();
+
+                int apagar = 1;
+
+                while (apagar != 0)
+                {
+                    Console.Write("[0] Apagar alarmas: ");
+                    apagar = int.Parse(Console.ReadLine());
+                }
+
+                start = false;
+                beap.Join();
+            }
+            else
+            {
+                Console.WriteLine("Sensor no encontrado o no es un sensor manual.");
             }
         }
 

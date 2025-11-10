@@ -160,6 +160,10 @@ namespace SCI
                 }
             }
 
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Emitiendo alerta a la central...");
+            Console.ResetColor();
+
             bool start = true;
 
             Thread beap = new Thread(() =>
