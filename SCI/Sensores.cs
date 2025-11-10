@@ -22,7 +22,7 @@ namespace SCI
 
         public string[] UbicacionesSensores()
         {
-            string[] ubicaciones = { "Oficina", "Sala de Reuniones", "Gerencia", "Almacén", "Pasillo", "Grupo Electrógeno" };
+            string[] ubicaciones = { "Sala Turbo Gen 1", "Sala de Control", "Pasillo Principal", "Sala Turbo Gen 2", "Sala de Control", "Oficina Técnica" };
             return ubicaciones;
         }
 
